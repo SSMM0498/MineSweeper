@@ -2,13 +2,14 @@ var app = /** @class */ (function () {
     function app(numberCase, percentage) {
         if (percentage === void 0) { percentage = 12.5; }
         this.gameStatus = GameStatus.run;
-        this.isDevMode = true;
+        this.isDevMode = false;
         this.leftClickHandler = this.leftClickHandler.bind(this);
         this.rightClickHandler = this.rightClickHandler.bind(this);
         this.nbBlock = numberCase !== null && numberCase !== void 0 ? numberCase : 10;
         this.nbMine = Math.ceil(Math.pow(this.nbBlock, 2) * percentage / 100);
         this.appBoard = document.getElementById('main');
         this.mess = document.querySelector('.mess');
+        // this.chrono = document.getElementById("chronotime");
         this.blocks = [[]];
         this.init();
     }
@@ -36,6 +37,7 @@ var app = /** @class */ (function () {
             this.appBoard.appendChild(r);
         }
         this.setMines();
+        // this.chronoStart();
     };
     app.prototype.setMines = function () {
         for (var i = 0; i < this.nbMine; i++) {
@@ -108,6 +110,7 @@ var app = /** @class */ (function () {
         }
     };
     app.prototype.rightClickHandler = function (e) {
+        console.log("right");
         e.preventDefault();
         var target = e.target;
         this.addFlag(target);
@@ -141,7 +144,6 @@ var app = /** @class */ (function () {
     app.prototype.revealBlock = function (b) {
         b.isReveal = true;
         if (b.type == BlockType.mine) {
-            b.el.innerHTML = "X";
             b.el.classList.add("mine");
         }
         else if (b.type == BlockType["void"]) {
@@ -163,12 +165,12 @@ var app = /** @class */ (function () {
         if (!b.isFlagged) {
             b.isFlagged = true;
             b.el.classList.add("flag");
-            b.el.innerHTML = "F";
+            b.el.removeEventListener('click', this.leftClickHandler);
         }
         else {
             b.isFlagged = false;
             b.el.classList.remove("flag");
-            b.el.innerHTML = "";
+            b.el.addEventListener('click', this.leftClickHandler);
         }
     };
     app.prototype.revealAll = function () {

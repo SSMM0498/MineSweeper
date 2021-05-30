@@ -5,7 +5,8 @@ class app {
     private mess: HTMLElement;
     private blocks: Array<Array<Block>>;
     private gameStatus: GameStatus = GameStatus.run;
-    private isDevMode = true;
+    private isDevMode = false;
+    private chrono: Element;
 
     constructor(numberCase?: number, percentage: number = 12.5) {
         this.leftClickHandler = this.leftClickHandler.bind(this)
@@ -16,6 +17,7 @@ class app {
 
         this.appBoard = document.getElementById('main');
         this.mess = document.querySelector('.mess');
+        // this.chrono = document.getElementById("chronotime");
         this.blocks = [[]];
 
         this.init();
@@ -44,6 +46,7 @@ class app {
             this.appBoard.appendChild(r);
         }
         this.setMines();
+        // this.chronoStart();
     }
 
     private setMines() {
@@ -118,19 +121,20 @@ class app {
             this.mess.innerText = "Vous avez appuyé sur une mine";
         }
     }
-    
+
     private rightClickHandler(e: MouseEvent): void {
+        console.log("right");
         e.preventDefault();
         const target = e.target;
         this.addFlag((target as HTMLButtonElement));
     }
-    
+
     private showBlocks(target: HTMLButtonElement) {
-        let {b, i, j} = this.findBlock(target);
+        let { b, i, j } = this.findBlock(target);
         this.revealBlock(b);
         if (this.isAllReveal()) { this.gameStatus = GameStatus.win; }
 
-        if (b.type == BlockType.mine) { 
+        if (b.type == BlockType.mine) {
             this.gameStatus = GameStatus.lose;
             this.revealAll();
         } else {
@@ -144,17 +148,16 @@ class app {
             }
         }
     }
-    
+
     private addFlag(target: HTMLButtonElement) {
-        let {b, i, j} = this.findBlock(target);
+        let { b, i, j } = this.findBlock(target);
         this.toggleFlagBlock(b);
     }
 
     private revealBlock(b: Block) {
         b.isReveal = true;
         if (b.type == BlockType.mine) {
-            b.el.innerHTML = "X";
-            b.el.classList.add("mine");   
+            b.el.classList.add("mine");
         } else if (b.type == BlockType.void) {
             b.el.innerHTML = ".";
         } else {
@@ -165,20 +168,20 @@ class app {
             b.isFlagged = false;
         }
         b.el.classList.add("reveal");
-        b.el.removeEventListener('click',this.leftClickHandler);
-        b.el.removeEventListener('contextmenu',this.rightClickHandler);
-        b.el.addEventListener('contextmenu',(e) => e.preventDefault());
+        b.el.removeEventListener('click', this.leftClickHandler);
+        b.el.removeEventListener('contextmenu', this.rightClickHandler);
+        b.el.addEventListener('contextmenu', (e) => e.preventDefault());
     }
-    
+
     private toggleFlagBlock(b: Block) {
         if (!b.isFlagged) {
             b.isFlagged = true;
             b.el.classList.add("flag");
-            b.el.innerHTML = "F";
+            b.el.removeEventListener('click', this.leftClickHandler);
         } else {
             b.isFlagged = false;
             b.el.classList.remove("flag");
-            b.el.innerHTML = "";
+            b.el.addEventListener('click', this.leftClickHandler);
         }
     }
 
@@ -189,8 +192,8 @@ class app {
             })
         })
     }
-    
-    private isAllReveal() : boolean {
+
+    private isAllReveal(): boolean {
         for (let i = 0; i < this.blocks.length; i++) {
             for (let j = 0; j < this.blocks[i].length; j++) {
                 if (!this.blocks[i][j].isReveal && this.blocks[i][j].type !== BlockType.mine) return false;
@@ -241,6 +244,5 @@ interface BlockWithCoord {
     i: number;
     j: number;
 }
-
 
 const game = new app();

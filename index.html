@@ -5,54 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Démineur</title>
-    <style>
-        *{
-            margin: 0;padding: 0;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100vh;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #main {
-            display: flex;
-            flex-direction: column;
-        }
-
-        #main .row {
-            display: flex;
-            flex-direction: row;
-        }
-
-        #main button {
-            border-radius: 0;
-            border: 1px solid black;
-            width: 50px;
-            height: 50px;
-            background-color: #e0e0e0;
-        }
-
-        #main button.reveal {
-            background-color: #b1eeb5;
-        }
-        
-        #main button.flag {
-            background-color: #87ceeb;
-        }
-        
-        #main button.mine.reveal {
-            background-color: #a3172a;
-        }
-    </style>
+    <link rel="stylesheet" href="style/main.css">
 </head>
 <body>
     <h1>MineSweeper</h1>
-    <main id="main"></main>
+    <!-- <div class="wrapper"> -->
+        <!-- <main class="sidebar">
+            <div id="chronotime"></div>
+        </main> -->
+        <main id="main"></main>
+    <!-- </div> -->
     <div class="mess"></div>
     <script src="main.js"></script>
 </body>

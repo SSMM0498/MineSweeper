@@ -1,0 +1,135 @@
+@font-face {
+    font-family: "LimeLight";
+    src: url("../font/Limelight-Regular.ttf");
+}
+
+*{
+    margin: 0;padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --backg: #1D232F;
+    --dark: #1a1b1d;
+    --prime: #4B6FE1;
+    --prime-alt: #2b48a7;
+    --flag: #EFC440;
+    --flag-alt: #e7cd7f;
+    --mine: #d42246;
+    --show: #242a36;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--backg);
+}
+
+.wrapper {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    border: 5px solid var(--dark);
+    margin-top: 2.5%;
+}
+
+#main .row {
+    display: flex;
+    flex-direction: row;
+}
+
+#main button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    border: 2px solid var(--backg);
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.8);
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(var(--prime), var(--prime-alt));
+    opacity: .9;
+}
+
+#main button::after {
+    position: absolute;
+    content: "";
+    width: 25px;
+    height: 25px;
+    z-index: -1;
+    border-radius: 50%;
+    border: 3px solid var(--prime);
+    opacity: .9;
+    background: linear-gradient(var(--prime-alt), var(--prime));
+}
+
+#main button.reveal {
+    background: none;
+    background-color: #00000028;
+}
+
+#main button.reveal::after {
+    border: none;
+    background: none;
+}
+
+#main button.flag {
+    background: linear-gradient(var(--flag), var(--flag-alt));
+    color: white;
+}
+
+#main button.flag::after {
+    border: none;
+    background: linear-gradient(var(--flag-alt), var(--flag));
+}
+
+#main button.flag::before {
+    z-index: 1;
+    content: "";
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M3 3h9.382a1 1 0 0 1 .894.553L14 5h6a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1h-6.382a1 1 0 0 1-.894-.553L12 16H5v6H3V3z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
+}
+
+#main button.mine.reveal {
+    background-color: #a3172a;
+}
+
+#main button.mine.reveal::before {
+    z-index: 1;
+    content: "";
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M13 19.9a5.002 5.002 0 0 0 4-4.9v-3a4.98 4.98 0 0 0-.415-2h-9.17A4.98 4.98 0 0 0 7 12v3a5.002 5.002 0 0 0 4 4.9V14h2v5.9zm-7.464-2.21A6.979 6.979 0 0 1 5 15H2v-2h3v-1c0-.643.087-1.265.249-1.856L3.036 8.866l1-1.732L6.056 8.3a7.01 7.01 0 0 1 .199-.3h11.49c.069.098.135.199.199.3l2.02-1.166 1 1.732-2.213 1.278c.162.59.249 1.213.249 1.856v1h3v2h-3c0 .953-.19 1.862-.536 2.69l2.5 1.444-1 1.732-2.526-1.458A6.986 6.986 0 0 1 12 22a6.986 6.986 0 0 1-5.438-2.592l-2.526 1.458-1-1.732 2.5-1.443zM8 6a4 4 0 1 1 8 0H8z' fill='rgba(255,255,255,1)'/%3E%3C/svg%3E");
+}
+
+.sidebar {
+    width: 12.5%;
+}
+
+h1 {
+    font-size: 125px;
+    line-height: 100px;
+    text-transform: uppercase;
+    letter-spacing: 2rem;
+    color: #0000002c;
+    font-family: 'Limelight', cursive;
+}
+
+.mess {
+    margin-top: 2%;
+    font-size: 24px;
+    color: white;
+}
